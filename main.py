@@ -63,7 +63,7 @@ def show_one_user(id):
     return 'Пользователя с таким id нет в базе'
 
 
-@app.route('/users', method=['POST'])
+@app.route('/users', methods=['POST'])
 def add_user():
     data = request.json
     user = User(
@@ -79,7 +79,7 @@ def add_user():
     return jsonify(get_offer(user))
 
 
-@app.route('/users/<int:id>/update', method=['PUT'])
+@app.route('/users/<int:id>/update', methods=['PUT'])
 def update_user_by_id(id):
     data = request.json
     user = User.query.get(id)
@@ -93,7 +93,7 @@ def update_user_by_id(id):
     return f'Пользователь с id {id} обнавлен'
 
 
-@app.route('/users/<int:id>/delete', method=['DELETE'])
+@app.route('/users/<int:id>/delete', methods=['DELETE'])
 def delete_user_by_id(id):
     user = User.query.get(id)
     if user:
@@ -120,8 +120,8 @@ def show_one_order(id):
     return 'Заказа с таким id нет в базе'
 
 
-@app.route('/orders', method=['POST'])
-def add_user():
+@app.route('/orders', methods=['POST'])
+def add_order():
     data = request.json
     order = Order(
         name=data.get('name'),
@@ -138,8 +138,8 @@ def add_user():
     return jsonify(get_offer(order))
 
 
-@app.route('/orders/<int:id>/update', method=['PUT'])
-def update_user_by_id(id):
+@app.route('/orders/<int:id>/update', methods=['PUT'])
+def update_order_by_id(id):
     data = request.json
     order = Order.query.get(id)
     order.name = data.name
@@ -154,8 +154,8 @@ def update_user_by_id(id):
     return f'Товар с id {id} обновлен'
 
 
-@app.route('/orders/<int:id>/delete', method=['DELETE'])
-def delete_user_by_id(id):
+@app.route('/orders/<int:id>/delete', methods=['DELETE'])
+def delete_order_by_id(id):
     order = Order.query.get(id)
     if order:
         db.session.delete(order)
@@ -181,8 +181,8 @@ def show_one_offer(id):
     return 'Заказа с таким id нет в базе'
 
 
-@app.route('/offers', method=['POST'])
-def add_user():
+@app.route('/offers', methods=['POST'])
+def add_offer():
     data = request.json
     offer = Order(
         order_id=data.get('order_id'),
@@ -193,8 +193,8 @@ def add_user():
     return jsonify(get_offer(offer))
 
 
-@app.route('/offers/<int:id>/update', method=['PUT'])
-def update_user_by_id(id):
+@app.route('/offers/<int:id>/update', methods=['PUT'])
+def update_offer_by_id(id):
     data = request.json
     offer = Order.query.get(id)
     offer.order_id = data.order_id
@@ -202,8 +202,8 @@ def update_user_by_id(id):
     return f'Заказ с id {id} обновлен'
 
 
-@app.route('/offers/<int:id>/delete', method=['DELETE'])
-def delete_user_by_id(id):
+@app.route('/offers/<int:id>/delete', methods=['DELETE'])
+def delete_offer_by_id(id):
     offer = Order.query.get(id)
     if offer:
         db.session.delete(offer)
