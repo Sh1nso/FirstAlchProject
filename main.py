@@ -76,24 +76,24 @@ def add_user():
     )
     db.session.add(user)
     db.session.commit()
-    return jsonify(get_offer(user))
+    return jsonify(get_user(user))
 
 
 @app.route('/users/<int:id>/update', methods=['PUT'])
 def update_user_by_id(id):
     data = request.json
     user = User.query.get(id)
-    user.first_name = data.first_name
-    user.last_name = data.last_name
-    user.age = data.age
-    user.email = data.email
-    user.role = data.role
-    user.phone = data.phone
+    user.first_name = data.get('first_name')
+    user.last_name = data.get('last_name')
+    user.age = data.get('age')
+    user.email = data.get('email')
+    user.role = data.get('role')
+    user.phone = data.get('phone')
     db.session.commit()
     return f'Пользователь с id {id} обнавлен'
 
 
-@app.route('/users/<int:id>/delete', methods=['DELETE'])
+@app.route('/users/<int:id>/delete')
 def delete_user_by_id(id):
     user = User.query.get(id)
     if user:
@@ -142,19 +142,19 @@ def add_order():
 def update_order_by_id(id):
     data = request.json
     order = Order.query.get(id)
-    order.name = data.name
-    order.description = data.description
-    order.start_date = data.start_date
-    order.end_date = data.end_date
-    order.address = data.address
-    order.price = data.price
-    order.customer_id = data.customer_id
-    order.executor_id = data.executor_id
+    order.name = data.getname
+    order.description = data.get('description')
+    order.start_date = data.get('start_date')
+    order.end_date = data.get('end_date')
+    order.address = data.get('address')
+    order.price = data.get('price')
+    order.customer_id = data.get('customer_id')
+    order.executor_id = data.get('executor_id')
     db.session.commit()
     return f'Товар с id {id} обновлен'
 
 
-@app.route('/orders/<int:id>/delete', methods=['DELETE'])
+@app.route('/orders/<int:id>/delete')
 def delete_order_by_id(id):
     order = Order.query.get(id)
     if order:
@@ -197,12 +197,12 @@ def add_offer():
 def update_offer_by_id(id):
     data = request.json
     offer = Order.query.get(id)
-    offer.order_id = data.order_id
-    offer.executor_id = data.executor_id
+    offer.order_id = data.get('order_id')
+    offer.executor_id = data.get('executor_id')
     return f'Заказ с id {id} обновлен'
 
 
-@app.route('/offers/<int:id>/delete', methods=['DELETE'])
+@app.route('/offers/<int:id>/delete')
 def delete_offer_by_id(id):
     offer = Order.query.get(id)
     if offer:
